@@ -88,7 +88,6 @@ wire    [ 28 :  0 ] inc_rx = r_rx[28] ? (BAUD_RX) : (BAUD_RX-INPUT_CLK);
 wire    [ 28 :  0 ] tx_tic = r_tx + inc_tx;
 wire    [ 28 :  0 ] rx_tic = r_rx + inc_rx;
 always@(posedge clk)
-if(en)
 begin
     r_tx <= tx_tic;
     r_rx <= rx_tic;
@@ -289,7 +288,7 @@ wire tx_read;
 wire tx_busy;
 wire tx_full;
 wire tx_empty;
-zrb_sync_fifo #(2,8) u3(
+zrb_sync_fifo #(2,NUM_BITS) u3(
     1'b0,                   //reset
     clk,                    //clock
     wr,                     //write_enable
@@ -300,7 +299,7 @@ zrb_sync_fifo #(2,8) u3(
     tx_empty                //fifo_empty_out
     );
 assign tx_en = ~tx_full;
-zrb_uart_tx #(8,"NO",1) u4(
+zrb_uart_tx #(NUM_BITS, PARITY, STOP_BIT) u4(
     clk,                    //input clock
     baud,                   //BAUD RATE
     1'b0,                   //reset
