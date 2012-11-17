@@ -130,7 +130,7 @@ localparam WIDTH =  PARITY == "NO"   ?  NUM_BITS + START_BIT + STOP_BIT :
 reg     [  8 :  0 ] r_data = 9'b0;
 reg     [  3 :  0 ] r_cnt = 4'b0;
 reg                 r_tx = 1'b1;
-reg					r_rd = 1'b0;
+reg		    r_rd = 1'b0;
 
 wire                sending = |r_cnt;
 assign              busy = sending;
